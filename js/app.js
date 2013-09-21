@@ -1,5 +1,25 @@
 var api_key = "dbe04f1b8655b92d";
+var zip;
 var default_zipcode = 24060;
+
+function fade_in(zepto_selector) {
+  zepto_selector.animate({ "opacity" : 100 }, 300, "linear");
+}
+function timenow(){
+    var now= new Date(),
+    ampm= 'am',
+    h= now.getHours(),
+    m= now.getMinutes(),
+    s= now.getSeconds();
+    if(h>= 12){
+        if(h>12)h-= 12;
+        ampm= 'pm';
+    }
+    if(h<10) h= '0'+h;
+    if(m<10) m= '0'+m;
+    if(s<10) s= '0'+s;
+    return now.toLocaleDateString()+' '+h+':'+m+':'+s+' '+ampm;
+}
 
 function two_dimensional_array_to_string(array) {
   var ret = "";
@@ -11,22 +31,42 @@ function two_dimensional_array_to_string(array) {
   });
   return ret;
 }
-
-function display_weather(json) {
-  console.log(json);
-
+function animate_weather(frames_array) {
   var x = 0;
-  setInterval(function() {
-    $("body textarea").val(
-      two_dimensional_array_to_string(frames.raining[x])
-    );
-    if (x == 0) { x = 1; } else { x = 0 }
-  }, 200);
+    setInterval(function() {
+      $("body textarea").val(
+        two_dimensional_array_to_string(frames_array[x])
+      );
+      if (x == 0) { x = 1; } else { x = 0 }
+    }, 200);
+}
+
+function display_weather(data) {
+  if (data.weather == "Rain") {
+    $("h1").html("It's Raining at " + zip);
+    fade_in($("h1"));
+    fade_in($("h2"));
+  }
+  $("#details").html(data.temp_f + "&deg;F | " + data.wind_mph + "MPH Wind | " + data.relative_humidity + " Humidity");
+  fade_in($("#details"));
+  $("#date").html(timenow());
+  fade_in($("#date"));
+    animate_weather(frames.raining);
+}
+function recieveData(data) {
 }
 
 function get_weather(zip_code) {
-  $.getJSON("http://api.wunderground.com/api/" + api_key + "/conditions/q/" + zip_code + ".json", function(data) {
-    display_weather(data);
+  zip = zip_code;
+  $.ajax({
+    url : "http://api.wunderground.com/api/" + api_key + "/conditions/q/" + zip_code + ".json?callback=recieveData", 
+    dataType : "jsonp",
+    success : function(data) { display_weather(data.current_observation); },
+    callback : function(data) { display_weather(data); }
   });
 }
-window.onload = function() { };
+window.onload = function() { 
+  var parts = window.location.href.split("/");
+  var matches = parts[parts.length -1].match(/\d{5}/);
+  get_weather(matches && matches[0] ? matches[0] : default_zipcode);
+};
