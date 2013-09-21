@@ -42,16 +42,23 @@ function animate_weather(frames_array) {
 }
 
 function display_weather(data) {
+  console.log(data.weather);
+  frame = null;
   if (data.weather == "Rain") {
-    $("h1").html("It's Raining at " + zip);
-    fade_in($("h1"));
-    fade_in($("h2"));
+    $("h1").html("It's Raining in the " + zip);
+    frame = frames.raining;
+  } else if (data.weather.match(/clouds/ig)) {
+    $("h1").html("It's Cloudy in the " + zip);
+    frame = frames.cloudy;
   }
+  fade_in($("h1"));
+  fade_in($("h2"));
+
   $("#details").html(data.temp_f + "&deg;F | " + data.wind_mph + "MPH Wind | " + data.relative_humidity + " Humidity");
   fade_in($("#details"));
   $("#date").html(timenow());
   fade_in($("#date"));
-    animate_weather(frames.raining);
+  animate_weather(frame);
 }
 function recieveData(data) {
 }
