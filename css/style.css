@@ -1,0 +1,48 @@
+body {
+  overflow: hidden;
+  font-family: Inconsolata;
+  white-space: no-wrap;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 50px;
+  line-height: 1.2em;
+}
+#weather {
+}
+div {
+}
+textarea {
+  margin: 0 auto;
+  outline: none;
+  text-align: center;
+  border: none;
+  border-bottom: 1px solid #cfcfcf;
+  display: block;
+  width: 350px;
+  height: 200px;
+  resize: none;
+  overflow: hidden;
+  padding-bottom: 40px;
+}
+#label {
+  display: inline-block;
+  text-align: center
+}
+h1 {
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 30px;
+}
+h2 {
+  font-size: 14px;
+  font-weight: normal;
+  margin-bottom: 10px;
+}
+
+@font-face {
+  font-family: 'Inconsolata';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Inconsolata'), local('Inconsolata'), url(../css/Inconsolata.otf) format('opentype');
+}
+
