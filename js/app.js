@@ -1,5 +1,6 @@
 var api_key = "dbe04f1b8655b92d";
 var zip;
+var timer;
 var default_zipcode = 24060;
 
 function fade_in(zepto_selector) {
@@ -33,13 +34,16 @@ function two_dimensional_array_to_string(array) {
 }
 function animate_weather(slides_hash) {
   var x = 0;
-  setInterval(function() {
+  timer = setInterval(function() {
     $("body textarea").val(
       two_dimensional_array_to_string(slides_hash.frames[x])
     );
     x = x + 1;
     if (x == slides_hash.frames.length) { x = 0; }
   }, slides_hash.interval);
+}
+function clear_timer() {
+  clearInterval(timer);
 }
 
 function display_weather(data) {
@@ -55,6 +59,9 @@ function display_weather(data) {
   } else if (data.weather.match(/clear/ig)) {
     $("h1").html("It's All Clear in the " + zip);
     frame = slides.clear;
+  } else if (data.weather.match(/overcast/ig)) {
+    $("h1").html("Overcast! in " + zip);
+    frame = slides.cloudy;
   }
   fade_in($("h1"));
   fade_in($("h2"));
