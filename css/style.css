@@ -33,15 +33,17 @@ textarea {
   height: 200px;
   resize: none;
   overflow: hidden;
-  padding-bottom: 20px;
-  padding-top: 20px;
+  padding-bottom: 20px; padding-top: 20px;
+  user-select: none;
 }
 
 #title {
   display: block;
   border-bottom: 1px solid #cfcfcf;
-  font-size: 12px;
+  font-size: 22px;
+  padding-bottom: 5px;
   text-align: left;
+  letter-spacing: -1px;
 }
 
 #label {
