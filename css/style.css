@@ -1,3 +1,9 @@
+@font-face {
+  font-family: 'Inconsolata';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Inconsolata'), local('Inconsolata'), url(../css/Inconsolata.otf) format('opentype');
+}
 body {
   overflow: hidden;
   font-family: Inconsolata;
@@ -27,7 +33,8 @@ textarea {
   height: 200px;
   resize: none;
   overflow: hidden;
-  padding-bottom: 40px;
+  padding-bottom: 20px;
+  padding-top: 20px;
 }
 
 #title {
@@ -35,7 +42,6 @@ textarea {
   border-bottom: 1px solid #cfcfcf;
   font-size: 12px;
   text-align: left;
-  margin-bottom: 30px;
 }
 
 #label {
@@ -63,10 +69,16 @@ h2 {
   opacity: 0;
 }
 
-@font-face {
-  font-family: 'Inconsolata';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Inconsolata'), local('Inconsolata'), url(../css/Inconsolata.otf) format('opentype');
+
+
+a {
+  color: #00396b;
+  text-decoration: none;
+  display: inline-block;
+  padding: 3px;
 }
 
+a:hover {
+  background: #00396b;
+  color: white;
+}

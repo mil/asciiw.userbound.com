@@ -31,25 +31,30 @@ function two_dimensional_array_to_string(array) {
   });
   return ret;
 }
-function animate_weather(frames_array) {
+function animate_weather(slides_hash) {
   var x = 0;
-    setInterval(function() {
-      $("body textarea").val(
-        two_dimensional_array_to_string(frames_array[x])
-      );
-      if (x == 0) { x = 1; } else { x = 0 }
-    }, 200);
+  setInterval(function() {
+    $("body textarea").val(
+      two_dimensional_array_to_string(slides_hash.frames[x])
+    );
+    x = x + 1;
+    if (x == slides_hash.frames.length) { x = 0; }
+  }, slides_hash.interval);
 }
 
 function display_weather(data) {
   console.log(data.weather);
   frame = null;
+  console.log(data.weather);
   if (data.weather == "Rain") {
     $("h1").html("It's Raining in the " + zip);
-    frame = frames.raining;
-  } else if (data.weather.match(/clouds/ig)) {
+    frame = slides.raining;
+  } else if (data.weather.match(/cloud/ig)) {
     $("h1").html("It's Cloudy in the " + zip);
-    frame = frames.cloudy;
+    frame = slides.cloudy;
+  } else if (data.weather.match(/clear/ig)) {
+    $("h1").html("It's All Clear in the " + zip);
+    frame = slides.clear;
   }
   fade_in($("h1"));
   fade_in($("h2"));
