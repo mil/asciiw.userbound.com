@@ -53,7 +53,7 @@ function display_weather(data) {
   if (data.weather.match(/light rain/ig)) {
     $("h1").html("It's Light Raining in the " + zip);
     frame = slides.raining;
-  } else if (data.weather.match(/rain/ig) {
+  } else if (data.weather.match(/rain/ig)) {
     $("h1").html("It's Raining in the " + zip);
     frame = slides.raining;
   } else if (data.weather.match(/cloud/ig)) {
