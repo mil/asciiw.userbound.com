@@ -27,6 +27,7 @@ textarea {
   outline: none;
   text-align: center;
   border: none;
+  border-top: 1px solid #cfcfcf;
   border-bottom: 1px solid #cfcfcf;
   display: block;
   width: 350px;
@@ -39,11 +40,15 @@ textarea {
 
 #title {
   display: block;
-  border-bottom: 1px solid #cfcfcf;
-  font-size: 22px;
-  padding-bottom: 5px;
+  font-size: 28px;
+  padding-bottom: 15px;
   text-align: left;
   letter-spacing: -1px;
+}
+#location {
+  float: right;
+  font-size: 11px;
+  padding-top: 5px;
 }
 
 #label {
@@ -58,7 +63,8 @@ h1 {
   opacity: 0;
 }
 h2 {
-  font-size: 14px;
+  margin-top: 20px;
+  font-size: 11px;
   font-weight: normal;
 }
 #details {
@@ -67,7 +73,7 @@ h2 {
 #date {
   margin-top: 0;
   padding-top: 0;
-  font-size: 11px;
+  font-size: 12px;
   opacity: 0;
 }
 

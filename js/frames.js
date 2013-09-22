@@ -146,19 +146,48 @@ var slides = {
     interval: 200,
     frames: [
       [
-          "           =,                                    ".split(""),
-          "            \\,                                 ".split(""),
-          "            ]                               ".split(""),
-          "            |                                     ".split(""),
-          "           /                                       ".split(""),
-          "         .=                                        ".split(""),
-          "-,____.-                                         ".split(""),
-          "                                         ".split(""),
-          "                                                ".split(""),
-          "                                                           ".split(""),
-          "                                                        ".split(""),
-          "                                                                             ".split("")
-      ]
+        "                                         ".split(""),
+        "            },--.,                       ".split(""),
+        "            ]     ),                     ".split(""),
+        "            |___,__)                     ".split(""),
+        "           /                             ".split(""),
+        "         .=                              ".split(""),
+        "-,____.-                                 ".split(""),
+        "                                         ".split(""),
+        "                                         ".split(""),
+        "                                         ".split(""),
+        "                                         ".split(""),
+        "                                         ".split("")
+      ],
+      [
+        "                                         ".split(""),
+        "            },   *     ,--.,              ".split(""),
+        "            ] *      (     ),            ".split(""),
+        "            |       (,___,__)            ".split(""),
+        "           / * *                         ".split(""),
+        "         .=                              ".split(""),
+        "-,____.- *                               ".split(""),
+        "    *      *                             ".split(""),
+        "    *                                    ".split(""),
+        "                                         ".split(""),
+        "                                         ".split(""),
+        "                                         ".split("")
+      ],
+      [
+        "                    *                    ".split(""),
+        "            },   *                ,--.,   ".split(""),
+        "            ] *                 (     ), ".split(""),
+        "            |                  (,___,__) ".split(""),
+        "           / * * *                       ".split(""),
+        "         .=                              ".split(""),
+        "-,____.- *                               ".split(""),
+        "    *      *                             ".split(""),
+        "    *        *                           ".split(""),
+        "    *                                    ".split(""),
+        "    *                                    ".split(""),
+        "                                         ".split("")
+      ],
+
     ]
   },
   snowing : {}

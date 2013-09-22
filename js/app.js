@@ -3,18 +3,22 @@ var zip;
 var timer;
 var default_zipcode = 24060;
 
+function error(message) {
+  console.log(message);
+}
+
 function fade_in(zepto_selector) {
   zepto_selector.animate({ "opacity" : 100 }, 300, "linear");
 }
 function timenow(){
     var now= new Date(),
-    ampm= 'am',
+    ampm= 'AM',
     h= now.getHours(),
     m= now.getMinutes(),
     s= now.getSeconds();
     if(h>= 12){
         if(h>12)h-= 12;
-        ampm= 'pm';
+        ampm= 'PM';
     }
     if(h<10) h= '0'+h;
     if(m<10) m= '0'+m;
@@ -47,33 +51,41 @@ function clear_timer() {
 }
 
 function display_weather(data) {
-  console.log(data.weather);
   frame = null;
-  console.log(data.weather);
+  console.log(data);
+  var location = data.display_location.full;
+  var city     = data.display_location.city;
+  $("#location").html(location + " - " + zip);
   if (data.weather.match(/light rain/ig)) {
-    $("h1").html("It's Light Raining in the " + zip);
+    $("h1").html("Lightly Raining in " + city);
     frame = slides.raining;
   } else if (data.weather.match(/rain/ig)) {
-    $("h1").html("It's Raining in the " + zip);
+    $("h1").html("Raining in " + city);
     frame = slides.raining;
   } else if (data.weather.match(/cloud/ig)) {
-    $("h1").html("It's Cloudy in the " + zip);
+    $("h1").html("Cloudy in " + city);
     frame = slides.cloudy;
   } else if (data.weather.match(/clear/ig)) {
-    $("h1").html("It's All Clear in the " + zip);
+    $("h1").html("All Clear in " + city);
     frame = slides.clear;
   } else if (data.weather.match(/overcast/ig)) {
-    $("h1").html("Overcast! in " + zip);
+    $("h1").html("Overcast in " + city);
     frame = slides.cloudy;
+  } else if (data.weather.match(/sun/ig)) {
+    $("h1").html("Sunny in" + city);
+    frame = slides.cloudy;
+  } else {
+    error("Unsupported Weather Status '" + data.weather + "'<br/>Please submit a bug, patch, or report!");
   }
+  fade_in($("#location"));
   fade_in($("h1"));
-  fade_in($("h2"));
 
-  $("#details").html(data.temp_f + "&deg;F | " + data.wind_mph + "MPH Wind | " + data.relative_humidity + " Humidity");
+  $("#details").html(data.temp_f + "&deg;F | " + data.wind_mph + "MPH Wind | " + data.wind_string );
   fade_in($("#details"));
   $("#date").html(timenow());
   fade_in($("#date"));
   animate_weather(frame);
+  fade_in($("h2"));
 }
 function recieveData(data) {
 }
