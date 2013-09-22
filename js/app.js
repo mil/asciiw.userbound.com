@@ -50,7 +50,10 @@ function display_weather(data) {
   console.log(data.weather);
   frame = null;
   console.log(data.weather);
-  if (data.weather == "Rain") {
+  if (data.weather.match(/light rain/ig) {
+    $("h1").html("It's Light Raining in the " + zip);
+    frame = slides.raining;
+  } else if (data.weather.match(/rain/ig) {
     $("h1").html("It's Raining in the " + zip);
     frame = slides.raining;
   } else if (data.weather.match(/cloud/ig)) {
