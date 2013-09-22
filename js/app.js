@@ -4,7 +4,9 @@ var timer;
 var default_zipcode = 24060;
 
 function error(message) {
+  clear_timer();
   console.log(message);
+  $("body textarea").val(message);
 }
 
 function fade_in(zepto_selector) {
@@ -75,7 +77,7 @@ function display_weather(data) {
     $("h1").html("Sunny in" + city);
     frame = slides.cloudy;
   } else {
-    error("Unsupported Weather Status '" + data.weather + "'<br/>Please submit a bug, patch, or report!");
+    error("Unsupported Weather Status '" + data.weather + "\nPlease submit a bug, patch, or report!");
   }
   fade_in($("#location"));
   fade_in($("h1"));
@@ -96,6 +98,9 @@ function get_weather(zip_code) {
     url : "http://api.wunderground.com/api/" + api_key + "/conditions/q/" + zip_code + ".json?callback=recieveData", 
     dataType : "jsonp",
     success : function(data) { display_weather(data.current_observation); },
+    error : function(data) {
+      error("Either\n You're not connected to the Internets\nor Wunderground is down buddy");
+    },
     callback : function(data) { display_weather(data); }
   });
 }
