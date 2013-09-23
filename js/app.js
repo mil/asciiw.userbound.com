@@ -28,22 +28,10 @@ function timenow(){
     return now.toLocaleDateString()+' '+h+':'+m+':'+s+' '+ampm;
 }
 
-function two_dimensional_array_to_string(array) {
-  var ret = "";
-  _.times(array.length, function(n) {
-    _.times(array[0].length, function(m) {
-      ret = ret + array[n][m];
-    });
-    ret = ret + "\n";
-  });
-  return ret;
-}
 function animate_weather(slides_hash) {
   var x = 0;
   timer = setInterval(function() {
-    $("body textarea").val(
-      two_dimensional_array_to_string(slides_hash.frames[x])
-    );
+    $("body textarea").val(slides_hash.frames[x].join("\n"));
     x = x + 1;
     if (x == slides_hash.frames.length) { x = 0; }
   }, slides_hash.interval);
@@ -89,13 +77,11 @@ function display_weather(data) {
   animate_weather(frame);
   fade_in($("h2"));
 }
-function recieveData(data) {
-}
 
 function get_weather(zip_code) {
   zip = zip_code;
   $.ajax({
-    url : "http://api.wunderground.com/api/" + api_key + "/conditions/q/" + zip_code + ".json?callback=recieveData", 
+    url : "http://api.wunderground.com/api/" + api_key + "/conditions/q/" + zip_code + ".json", 
     dataType : "jsonp",
     success : function(data) { display_weather(data.current_observation); },
     error : function(data) {
