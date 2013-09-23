@@ -1,7 +1,6 @@
 var api_key = "dbe04f1b8655b92d";
-var zip;
-var timer;
 var default_zipcode = 24060;
+var timer;
 
 function error(message) {
   clear_timer();
@@ -40,9 +39,8 @@ function clear_timer() {
   clearInterval(timer);
 }
 
-function display_weather(data) {
+function display_weather(zip, data) {
   frame = null;
-  console.log(data);
   var location = data.display_location.full;
   var city     = data.display_location.city;
   $("#location").html(location + " - " + zip);
@@ -79,16 +77,12 @@ function display_weather(data) {
 }
 
 function get_weather(zip_code) {
-  zip = zip_code;
   $.ajax({
     url : "http://api.wunderground.com/api/" + api_key + "/conditions/q/" + zip_code + ".json", 
     dataType : "jsonp",
-    success : function(data) { display_weather(data.current_observation); },
-    error : function(data) {
-      error("Either\n You're not connected to the Internets\nor Wunderground is down buddy");
-    },
-    timeout: 3000,
-    callback : function(data) { display_weather(data); }
+    success : function(data) { display_weather(zip_code, data.current_observation); },
+    error : function(data) { error("Either\n You're not connected to the Internets\nor Wunderground is down buddy"); },
+    timeout: 3000
   });
 }
 window.onload = function() { 
