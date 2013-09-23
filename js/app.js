@@ -59,28 +59,28 @@ function display_weather(data) {
   var city     = data.display_location.city;
   $("#location").html(location + " - " + zip);
   if (data.weather.match(/light rain/ig)) {
-    $("h1").html("Lightly Raining in " + city);
+    $("h2").html("Lightly Raining in " + city);
     frame = slides.raining;
   } else if (data.weather.match(/rain/ig)) {
-    $("h1").html("Raining in " + city);
+    $("h2").html("Raining in " + city);
     frame = slides.raining;
   } else if (data.weather.match(/cloud/ig)) {
-    $("h1").html("Cloudy in " + city);
+    $("h2").html("Cloudy in " + city);
     frame = slides.cloudy;
   } else if (data.weather.match(/clear/ig)) {
-    $("h1").html("All Clear in " + city);
+    $("h2").html("All Clear in " + city);
     frame = slides.clear;
   } else if (data.weather.match(/overcast/ig)) {
-    $("h1").html("Overcast in " + city);
+    $("h2").html("Overcast in " + city);
     frame = slides.cloudy;
   } else if (data.weather.match(/sun/ig)) {
-    $("h1").html("Sunny in" + city);
+    $("h2").html("Sunny in" + city);
     frame = slides.cloudy;
   } else {
     error("Unsupported Weather Status '" + data.weather + "\nPlease submit a bug, patch, or report!");
   }
   fade_in($("#location"));
-  fade_in($("h1"));
+  fade_in($("h2"));
 
   $("#details").html(data.temp_f + "&deg;F | " + data.wind_mph + "MPH Wind | " + data.wind_string );
   fade_in($("#details"));
@@ -101,6 +101,7 @@ function get_weather(zip_code) {
     error : function(data) {
       error("Either\n You're not connected to the Internets\nor Wunderground is down buddy");
     },
+    timeout: 3000,
     callback : function(data) { display_weather(data); }
   });
 }

@@ -34,11 +34,12 @@ textarea {
   height: 200px;
   resize: none;
   overflow: hidden;
+  background: none;
   padding-bottom: 20px; padding-top: 20px;
   user-select: none;
 }
 
-#title {
+h1 {
   display: block;
   font-size: 28px;
   padding-bottom: 15px;
@@ -47,7 +48,7 @@ textarea {
 }
 #location {
   float: right;
-  font-size: 11px;
+  font-size: 12px;
   padding-top: 5px;
 }
 
@@ -55,20 +56,18 @@ textarea {
   display: inline-block;
   text-align: center
 }
-h1 {
+h2 {
   font-size: 22px;
   font-weight: bold;
   margin-top: 30px;
   margin-bottom: 5px;
   opacity: 0;
 }
-h2 {
+footer {
   margin-top: 20px;
   font-size: 11px;
   font-weight: normal;
-}
-#details {
-  opacity: 0;
+  line-height: 1em;
 }
 #date {
   margin-top: 0;
