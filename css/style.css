@@ -46,6 +46,10 @@ h1 {
   text-align: left;
   letter-spacing: -1px;
 }
+h1 .small {
+  font-size: 12px;
+}
+
 #location {
   float: right;
   font-size: 12px;
