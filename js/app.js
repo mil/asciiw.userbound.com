@@ -1,6 +1,14 @@
 var api_key = "dbe04f1b8655b92d";
 var default_zipcode = 24060;
 var timer;
+var weather_conditions = {
+  "light rain" : { title : "Lightly Raining in ", frame : slides.raining },
+  "rain" : { title : "Raining in ", frame : slides.raining },
+  "cloud" : { title : "Cloudy in ", frame : slides.cloudy },
+  "clear" : { title : "All Clear in ", frame : slides.clear },
+  "overcast" : { title : "Overcast in ", frame : slides.cloudy },
+  "sun" : { title : "Sunny in ", frame : slides.cloudy }
+};
 
 function error(message) {
   clear_timer();
@@ -12,19 +20,13 @@ function fade_in(zepto_selector) {
   zepto_selector.animate({ "opacity" : 100 }, 300, "linear");
 }
 function timenow(){
-    var now= new Date(),
-    ampm= 'AM',
-    h= now.getHours(),
-    m= now.getMinutes(),
-    s= now.getSeconds();
-    if(h>= 12){
-        if(h>12)h-= 12;
-        ampm= 'PM';
-    }
+  var now= new Date(), ampm= 'AM',
+  h= now.getHours(), m= now.getMinutes(), s= now.getSeconds();
+  if(h>= 12){ if(h>12)h-= 12; ampm= 'PM'; }
     if(h<10) h= '0'+h;
-    if(m<10) m= '0'+m;
-    if(s<10) s= '0'+s;
-    return now.toLocaleDateString()+' '+h+':'+m+':'+s+' '+ampm;
+      if(m<10) m= '0'+m;
+        if(s<10) s= '0'+s;
+          return now.toLocaleDateString()+' '+h+':'+m+':'+s+' '+ampm;
 }
 
 function animate_weather(slides_hash) {
@@ -35,45 +37,32 @@ function animate_weather(slides_hash) {
     if (x == slides_hash.frames.length) { x = 0; }
   }, slides_hash.interval);
 }
-function clear_timer() {
-  clearInterval(timer);
-}
+function clear_timer() { clearInterval(timer); }
 
 function display_weather(zip, data) {
-  frame = null;
-  var location = data.display_location.full;
-  var city     = data.display_location.city;
-  $("#location").html(location + " - " + zip);
-  if (data.weather.match(/light rain/ig)) {
-    $("h2").html("Lightly Raining in " + city);
-    frame = slides.raining;
-  } else if (data.weather.match(/rain/ig)) {
-    $("h2").html("Raining in " + city);
-    frame = slides.raining;
-  } else if (data.weather.match(/cloud/ig)) {
-    $("h2").html("Cloudy in " + city);
-    frame = slides.cloudy;
-  } else if (data.weather.match(/clear/ig)) {
-    $("h2").html("All Clear in " + city);
-    frame = slides.clear;
-  } else if (data.weather.match(/overcast/ig)) {
-    $("h2").html("Overcast in " + city);
-    frame = slides.cloudy;
-  } else if (data.weather.match(/sun/ig)) {
-    $("h2").html("Sunny in" + city);
-    frame = slides.cloudy;
-  } else {
-    error("Unsupported Weather Status '" + data.weather + "\nPlease submit a bug, patch, or report!");
+  var frame = null,
+  location = data.display_location.full;
+  city     = data.display_location.city;
+
+  for (condition in weather_conditions) {
+    if (data.weather.toLowerCase().match(condition)) {
+      $("h2").html(weather_conditions[condition].title + city);
+      frame = weather_conditions[condition].frame;
+    }
   }
+  if (!frame) {
+    error("Unsupported Weather Status '" + data.weather + "'\nPlease submit a bug, patch, or report!");
+    return;
+  }
+
+  $("#location").html(location + " - " + zip);
+  $("#details").html(data.temp_f + "&deg;F | " + data.wind_mph + "MPH Wind | " + data.wind_string );
+  $("#date").html(timenow());
   fade_in($("#location"));
   fade_in($("h2"));
-
-  $("#details").html(data.temp_f + "&deg;F | " + data.wind_mph + "MPH Wind | " + data.wind_string );
   fade_in($("#details"));
-  $("#date").html(timenow());
   fade_in($("#date"));
   animate_weather(frame);
-  fade_in($("h2"));
 }
 
 function get_weather(zip_code) {
