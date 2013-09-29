@@ -1,5 +1,6 @@
 var api_key = "dbe04f1b8655b92d";
 var default_zipcode = 24060;
+var old_text = "";
 var timer;
 var weather_conditions = {
   "light rain" : { title : "Lightly Raining in ", frame : slides.raining },
@@ -19,6 +20,42 @@ function error(message) {
 function fade_in(zepto_selector) {
   zepto_selector.animate({ "opacity" : 100 }, 300, "linear");
 }
+
+function warn(message) {
+  console.log("Warning: " + message);
+}
+
+function switch_zip() {
+  var new_zip = $("#location input").val().replace(" ", "");
+  if (new_zip.match(/\d{5}/)) {
+    var parts = window.location.href.split("/");
+    var now = parts[parts.length -1].match(/\d+/);
+    if (now && now.length > 0) { parts.pop(); }
+    window.location = parts.join("/") + "/" + new_zip;
+    window.location.reload();
+  } else { warn("Invalid Zipcode!"); }
+}
+
+function install_event_handlers() {
+  $("body").on('click', function(e) {
+    console.log(e.target);
+    if ($(e.target).attr("id") != "location") {
+      $("#location").html(old_text);
+    }
+  });
+  $("#location").on('click', function() {
+    if ($("#location").has("input").length == 0) {
+      old_text = $("#location").html();
+      $("#location").html("<input type='text' placeholder='Enter ZIP'></input><a href='#'>Go</a>");
+      $("#location input").focus();
+      install_event_handlers();
+    } else {
+    }
+  });
+  $("#location a").on('click', function() { switch_zip(); return false; });
+  $(document).on('keypress', function(e) { if (e.keyCode == 13) { switch_zip(); } });
+}
+
 function timenow(){
   var now= new Date(), ampm= 'AM',
   h= now.getHours(), m= now.getMinutes(), s= now.getSeconds();
@@ -75,6 +112,7 @@ function get_weather(zip_code) {
   });
 }
 window.onload = function() { 
+  install_event_handlers();
   var parts = window.location.href.split("/");
   var matches = parts[parts.length -1].match(/\d{5}/);
   get_weather(matches && matches[0] ? matches[0] : default_zipcode);

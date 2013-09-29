@@ -53,7 +53,21 @@ h1 .small {
 #location {
   float: right;
   font-size: 12px;
-  padding-top: 5px;
+  height: 18px;
+  line-height: 18px;
+}
+
+#location input {
+  border: none;
+  font-size: 11px;
+  padding: 3px;
+  color: #888888;
+}
+
+#location a:hover {
+  background: none;
+  color: black;
+  text-decoration: underline;
 }
 
 #label {
