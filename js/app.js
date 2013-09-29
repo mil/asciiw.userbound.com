@@ -31,15 +31,15 @@ function switch_zip() {
     var parts = window.location.href.split("/");
     var now = parts[parts.length -1].match(/\d+/);
     if (now && now.length > 0) { parts.pop(); }
-    window.location = parts.join("/") + "/" + new_zip;
-    window.location.reload();
+    console.log(parts.join("/") + "/" + new_zip);
+    window.location.href = parts.join("/") + "/" + new_zip;
   } else { warn("Invalid Zipcode!"); }
 }
 
 function install_event_handlers() {
   $("body").on('click', function(e) {
     console.log(e.target);
-    if ($(e.target).attr("id") != "location") {
+    if ($(e.target).attr("id") != "location" && !$(e.target).is("input")) {
       $("#location").html(old_text);
     }
   });
