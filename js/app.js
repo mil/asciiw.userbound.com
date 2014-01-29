@@ -8,7 +8,8 @@ var weather_conditions = {
   "cloud" : { title : "Cloudy in ", frame : slides.cloudy },
   "clear" : { title : "All Clear in ", frame : slides.clear },
   "overcast" : { title : "Overcast in ", frame : slides.cloudy },
-  "sun" : { title : "Sunny in ", frame : slides.cloudy }
+  "sun" : { title : "Sunny in ", frame : slides.cloudy },
+  "snow" : { title : "Snowing in ", frame : slides.snowing }
 };
 
 function error(message) {

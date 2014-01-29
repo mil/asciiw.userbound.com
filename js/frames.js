@@ -189,7 +189,7 @@ var slides = {
     ]
   },
   snowing : { 
-    interval: 300,
+    interval: 600,
     frames : [
       [
         "              ,--.,                      ",
