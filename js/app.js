@@ -1,5 +1,5 @@
 var api_key = "dbe04f1b8655b92d";
-var default_zipcode = 78758;
+var default_zipcode = 53703;
 var old_text = "";
 var timer;
 var weather_conditions = {
